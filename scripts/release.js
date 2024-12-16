@@ -23,11 +23,11 @@ function incrementVersion(version, type) {
       return `${major}.${minor + 1}.0`;
     case "patch":
       return `${major}.${minor}.${patch + 1}`;
-    case "pre-major":
+    case "premajor":
       return `${major + 1}.0.0-alpha.${getTimestamp()}`;
-    case "pre-minor":
+    case "preminor":
       return `${major}.${minor + 1}.0-alpha.${getTimestamp()}`;
-    case "pre-patch":
+    case "prepatch":
       return `${major}.${minor}.${patch + 1}-alpha.${getTimestamp()}`;
     default:
       throw new Error(`Unknown version type: ${type}`);
@@ -56,7 +56,7 @@ function getTimestamp() {
         type: "list",
         name: "versionType",
         message: "Select the type of version bump:",
-        choices: ["major", "minor", "patch", "pre-major", "pre-minor", "pre-patch"],
+        choices: ["major", "minor", "patch", "premajor", "preminor", "prepatch"],
       },
     ]);
 
@@ -70,18 +70,26 @@ function getTimestamp() {
     fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2), "utf-8");
     console.log(`Updated version to ${newVersion}`);
 
-    // 提交更改到 Git
-    console.log("Staging and committing changes...");
-    await execa("git", ["add", "package.json"]);
-    await execa("git", ["commit", "-m", `chore: bump version to ${newVersion}`]);
-    await execa("git", ["push"]);
-    console.log("Changes pushed to remote repository.");
-
-    // 发布到 npm
+    // 发布到 NPM
     console.log("Publishing to npm...");
-    await execa("npm", ["publish"], { stdio: "inherit" });
+    const npmArgs = versionType.startsWith("pre") ? ["publish", "--tag", "next"] : ["publish"];
+    await execa("npm", npmArgs, { stdio: "inherit" });
 
     console.log(`🎉 Successfully published version ${newVersion} to npm!`);
+
+    // 如果是 pre 版本，撤销对 package.json 的更改
+    if (versionType.startsWith("pre")) {
+      console.log("Pre-release detected. Reverting changes to package.json...");
+      await execa("git", ["checkout", pkgPath]);
+      console.log("Reverted package.json changes.");
+    } else {
+      // 正式版本需要提交并推送到远端
+      console.log("Staging and committing changes...");
+      await execa("git", ["add", "package.json"]);
+      await execa("git", ["commit", "-m", `chore: bump version to ${newVersion}`]);
+      await execa("git", ["push"]);
+      console.log("Changes pushed to remote repository.");
+    }
   } catch (error) {
     console.error("❌ An error occurred:", error.message);
 
