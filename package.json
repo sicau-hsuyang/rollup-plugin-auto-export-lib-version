@@ -1,6 +1,6 @@
 {
   "name": "rollup-plugin-auto-export-lib-version",
-  "version": "1.0.0",
+  "version": "1.0.1-alpha.20241216120646116",
   "description": "When you package library files with Rollup.js, the VERSION field is generated automatically.",
   "main": "dist/index.js",
   "module": "dist/index.js",
