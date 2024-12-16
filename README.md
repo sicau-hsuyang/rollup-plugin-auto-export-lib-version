@@ -45,7 +45,7 @@ export default {
 | ------------------- | -------- | ------------------------ | --------------------------------------------------------------------------------------------------------- |
 | `exportPropertyKey` | `string` | `'VERSION'`              | The property key used to expose the version number, e.g., `'VERSION'`.                                    |
 | `exportVersion`     | `string` | Read from `package.json` | The version value to expose. If not provided, it will be read from the `version` field in `package.json`. |
-| `sourceCodeStyle`   | `string` | `'es'`                   | The style of your source code. Can be `'cjs'` (CommonJS), `'es'` (ESModule), or `'auto'` to auto-detect.  |
+| `sourceCodeStyle`   | `string` | `'es'` \| `'auto'` \| `'cjs'`                  | The style of your source code. Can be `'cjs'` (CommonJS), `'es'` (ESModule), or `'auto'` to auto-detect.  |
 
 ## **Examples**
 
