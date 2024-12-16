@@ -5,7 +5,8 @@
   "main": "dist/index.js",
   "module": "dist/index.js",
   "scripts": {
-    "build": "rollup --config ./rollup.config.mjs"
+    "build": "rollup --config ./rollup.config.mjs",
+    "release": "node scripts/release.js"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,8 @@
   "devDependencies": {
     "@rollup/plugin-typescript": "^12.1.2",
     "@types/node": "^22.10.2",
+    "execa": "^9.5.2",
+    "inquirer": "^12.2.0",
     "rollup": "^4.28.1",
     "tslib": "^2.8.1"
   }
