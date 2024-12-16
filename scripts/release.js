@@ -72,7 +72,7 @@ function getTimestamp() {
 
     // 发布到 NPM
     console.log("Publishing to npm...");
-    const npmArgs = versionType.startsWith("pre") ? ["publish", "--tag", "next"] : ["publish"];
+    const npmArgs = versionType.startsWith("pre") ? ["publish", "--tag", "alpha"] : ["publish"];
     await execa("npm", npmArgs, { stdio: "inherit" });
 
     console.log(`🎉 Successfully published version ${newVersion} to npm!`);
