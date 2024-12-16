@@ -4,7 +4,8 @@ This is a Rollup plugin that automatically generates a `VERSION` field for your 
 
 ## **Introduction**
 
-This plugin helps you automatically add a `VERSION` field to your bundled library. The `VERSION` field can be exposed in your library for better version tracking and external use.
+This plug-in helps you automatically add a 'VERSION' field to the packaged library entry file.
+This field allows you to easily expose version information for version management and use.
 
 ## **Installation**
 
