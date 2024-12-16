@@ -54,3 +54,5 @@ export async function autoExportVersion(options: AutoExportLibVersionOptions = {
     },
   } as Plugin;
 }
+
+export default autoExportVersion;
