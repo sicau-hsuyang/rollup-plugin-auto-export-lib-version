@@ -1,0 +1,26 @@
+{
+  "name": "rollup-plugin-auto-export-lib-version",
+  "version": "1.0.0",
+  "description": "When you package library files with Rollup.js, the VERSION field is generated automatically.",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "scripts": {
+    "build": "rollup --config ./rollup.config.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sicau-hsuyang/rollup-plugin-auto-export-lib-version.git"
+  },
+  "author": "HsuYang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sicau-hsuyang/rollup-plugin-auto-export-lib-version/issues"
+  },
+  "homepage": "https://github.com/sicau-hsuyang/rollup-plugin-auto-export-lib-version#readme",
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^12.1.2",
+    "@types/node": "^22.10.2",
+    "rollup": "^4.28.1",
+    "tslib": "^2.8.1"
+  }
+}
