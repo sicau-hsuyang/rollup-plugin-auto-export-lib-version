@@ -5,22 +5,17 @@ const execa = require("execa");
 
 // 检查工作区是否干净
 async function checkCleanWorkspace() {
-  try {
-    const { stdout } = await execa("git", ["status", "--porcelain"]);
-    if (stdout.trim() !== "") {
-      throw new Error(
-        "Your working directory is not clean. Please commit or stash changes before running this script."
-      );
-    }
-  } catch (error) {
-    console.error("❌ Error checking Git status:", error.message);
-    process.exit(1);
+  const { stdout } = await execa("git", ["status", "--porcelain"]);
+  if (stdout.trim() !== "") {
+    throw new Error("Your working directory is not clean. Please commit or stash changes before running this script.");
   }
 }
 
 // 版本号更新函数
 function incrementVersion(version, type) {
   const [major, minor, patch] = version.split(".").map(Number);
+
+  // 根据类型更新版本号
   switch (type) {
     case "major":
       return `${major + 1}.0.0`;
@@ -28,9 +23,20 @@ function incrementVersion(version, type) {
       return `${major}.${minor + 1}.0`;
     case "patch":
       return `${major}.${minor}.${patch + 1}`;
+    case "pre-major":
+      return `${major + 1}.0.0-alpha.${getTimestamp()}`;
+    case "pre-minor":
+      return `${major}.${minor + 1}.0-alpha.${getTimestamp()}`;
+    case "pre-patch":
+      return `${major}.${minor}.${patch + 1}-alpha.${getTimestamp()}`;
     default:
       throw new Error(`Unknown version type: ${type}`);
   }
+}
+
+// 获取时间戳
+function getTimestamp() {
+  return new Date().toISOString().replace(/[-:T.Z]/g, "");
 }
 
 // 主函数
@@ -50,12 +56,14 @@ function incrementVersion(version, type) {
         type: "list",
         name: "versionType",
         message: "Select the type of version bump:",
-        choices: ["major", "minor", "patch"],
+        choices: ["major", "minor", "patch", "pre-major", "pre-minor", "pre-patch"],
       },
     ]);
 
     // 计算新的版本号
     const newVersion = incrementVersion(pkg.version, versionType);
+
+    // 更新版本号
     pkg.version = newVersion;
 
     // 写回 package.json
