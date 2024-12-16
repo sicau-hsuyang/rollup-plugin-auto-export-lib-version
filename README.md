@@ -51,13 +51,13 @@ export default {
 ### Automatically Read Version from `package.json`
 
 ```javascript
-autoVersion();
+autoExportVersion();
 ```
 
 ### Manually Specify Version
 
 ```javascript
-autoVersion({
+autoExportVersion({
   exportVersion: "2.3.1",
 });
 ```
@@ -65,7 +65,7 @@ autoVersion({
 ### Customize Exported Property Key
 
 ```javascript
-autoVersion({
+autoExportVersion({
   exportPropertyKey: "LIB_VERSION",
 });
 ```
@@ -73,7 +73,7 @@ autoVersion({
 ### Auto-Detect Source Code Style
 
 ```javascript
-autoVersion({
+autoExportVersion({
   sourceCodeStyle: "auto",
 });
 ```
