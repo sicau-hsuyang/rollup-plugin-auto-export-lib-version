@@ -45,7 +45,7 @@ export default {
 | ------------------- | -------- | ------------------------ | ----------------------------------------------------------------------------------- |
 | `exportPropertyKey` | `string` | `'VERSION'`              | 用于暴露版本号的字段名，例如 `'VERSION'`。                                          |
 | `exportVersion`     | `string` | 从 `package.json` 中读取 | 要暴露的版本号。如果未提供，则会从 `package.json` 文件的 `version` 字段中自动读取。 |
-| `sourceCodeStyle`   | `string` | `'es'`                   | 源代码风格。可以是 `'cjs'`（CommonJS）、`'es'`（ESModule）或 `'auto'`（自动检测）。 |
+| `sourceCodeStyle`   | `string` | `'auto'`                   | 源代码风格。可以是 `'cjs'`（CommonJS）、`'es'`（ESModule）或 `'auto'`（自动检测）。 |
 
 ## **使用示例**
 
