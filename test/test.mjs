@@ -51,3 +51,30 @@ test("specific version", async (t) => {
   const regExp = new RegExp("VERSION\\s*=\\s*['\"]" + version + "['\"]");
   t.true(regExp.test(res.output[0].code));
 });
+
+test("custom VERSION property", async (t) => {
+  const version = "3.0.0";
+  const bundled = await rollup({
+    input: resolve(__dirname, "./fixtures/test-default.mjs"),
+    plugins: [
+      autoExportVersion({
+        exportVersion: version,
+        exportPropertyKey: "LIB_VERSION",
+      }),
+    ],
+  });
+  const res = await bundled.generate({});
+  const regExp = new RegExp("LIB_VERSION\\s*=\\s*['\"]" + version + "['\"]");
+  t.true(regExp.test(res.output[0].code));
+});
+
+test("use commonjs code", async (t) => {
+  const version = await readPackageJsonVersion();
+  const bundled = await rollup({
+    input: resolve(__dirname, "./fixtures/test-commonjs.cjs"),
+    plugins: [autoExportVersion({})],
+  });
+  const res = await bundled.generate({});
+  const regExp = new RegExp("module.exports.VERSION\\s*=\\s*['\"]" + version + "['\"]");
+  t.true(regExp.test(res.output[0].code));
+});
