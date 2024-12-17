@@ -40,7 +40,12 @@ function getTimestamp() {
 }
 
 async function buildProject() {
-  await execa("npm", ["run", "build"]);
+  try {
+    const { stdout } = await execa("npm", ["run", "build"]);
+    console.log(stdout);
+  } catch (exp) {
+    console.log(exp);
+  }
 }
 
 // 主函数
