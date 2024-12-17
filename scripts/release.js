@@ -39,6 +39,10 @@ function getTimestamp() {
   return new Date().toISOString().replace(/[-:T.Z]/g, "");
 }
 
+async function buildProject() {
+  await execa("npm", ["run", "build"]);
+}
+
 // 主函数
 (async function main() {
   try {
@@ -69,7 +73,7 @@ function getTimestamp() {
     // 写回 package.json
     fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2), "utf-8");
     console.log(`Updated version to ${newVersion}`);
-
+    await buildProject();
     // 发布到 NPM
     console.log("Publishing to npm...");
     const npmArgs = versionType.startsWith("pre") ? ["publish", "--tag", "alpha"] : ["publish"];
