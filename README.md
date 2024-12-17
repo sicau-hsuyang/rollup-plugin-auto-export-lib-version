@@ -41,11 +41,11 @@ export default {
 
 ## **Options**
 
-| Option Name         | Type     | Default                  | Description                                                                                               |
-| ------------------- | -------- | ------------------------ | --------------------------------------------------------------------------------------------------------- |
-| `exportPropertyKey` | `string` | `'VERSION'`              | The property key used to expose the version number, e.g., `'VERSION'`.                                    |
-| `exportVersion`     | `string` | Read from `package.json` | The version value to expose. If not provided, it will be read from the `version` field in `package.json`. |
-| `sourceCodeStyle`   | `string` | `'auto'`                 | The style of your source code. Can be `'cjs'` (CommonJS), `'es'` (ESModule), or `'auto'` to auto-detect.  |
+| Option Name         | Type     | Default                  | Description                                                                                                                         |
+| ------------------- | -------- | ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `exportPropertyKey` | `string` | `'VERSION'`              | The property key used to expose the version number, e.g., `'VERSION'`.                                                              |
+| `exportVersion`     | `string` | Read from `package.json` | The version value to be exposed. If not provided, it will be read from the 'version' field in 'package.json' below `process.cwd()`. |
+| `sourceCodeStyle`   | `string` | `'auto'`                 | The style of your source code. Can be `'cjs'` (CommonJS), `'es'` (ESModule), or `'auto'` to auto-detect.                            |
 
 ## **Examples**
 
