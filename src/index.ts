@@ -1,5 +1,5 @@
-import { readFile } from "node:fs/promises";
-import { resolve } from "node:path";
+import { readFile } from "fs/promises";
+import { resolve } from "path";
 import { InputOptions, Plugin } from "rollup";
 
 function isObj(o: unknown) {
@@ -12,7 +12,7 @@ interface AutoExportLibVersionOptions {
   sourceCodeStyle?: "cjs" | "es" | "auto";
 }
 
-export async function autoExportVersion(options: AutoExportLibVersionOptions = {}) {
+export function autoExportVersion(options: AutoExportLibVersionOptions = {}) {
   const { exportPropertyKey = "VERSION", sourceCodeStyle = "auto", exportVersion = "" } = options;
 
   let VERSION: string = exportVersion;
@@ -20,14 +20,13 @@ export async function autoExportVersion(options: AutoExportLibVersionOptions = {
   return {
     name: "vite-plugin-auto-export-lib-version",
     async buildStart(options: InputOptions) {
-      if (VERSION !== "") {
-        return;
+      if (VERSION === "") {
+        const pkgJsonPath = resolve(process.cwd(), "package.json");
+        const pkgJsonContent = await readFile(pkgJsonPath, "utf-8");
+        const pkgJson = JSON.parse(pkgJsonContent);
+        const { version } = pkgJson;
+        VERSION = version;
       }
-      const pkgJsonPath = resolve(process.cwd(), "./package.json");
-      const pkgJsonContent = await readFile(pkgJsonPath, "utf-8");
-      const pkgJson = JSON.parse(pkgJsonContent);
-      const { version } = pkgJson;
-      VERSION = version;
       // get entry files path
       entryFiles = isObj(options.input)
         ? Object.values(options.input!)

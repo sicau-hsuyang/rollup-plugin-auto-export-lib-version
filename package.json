@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/sicau-hsuyang/rollup-plugin-auto-export-lib-version#readme",
   "devDependencies": {
+    "@rollup/plugin-node-resolve": "^16.0.0",
     "@rollup/plugin-typescript": "^12.1.2",
     "@types/node": "^22.10.2",
     "ava": "^6.2.0",
